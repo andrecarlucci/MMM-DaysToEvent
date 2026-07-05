@@ -8,7 +8,10 @@ Module.register("MMM-DaysToEvent", {
 		pastDaysCount: 0,
 		maxTitleLength: 25,
 		dateFormat: "MMM Do",
-		margin: 0, // Outer margin (px) applied to all four sides of the grid
+		marginTop: 0, // Outer margins (px) around the grid, per side
+		marginRight: 0,
+		marginBottom: 0,
+		marginLeft: 0,
 
 		fetchInterval: 60 * 60 * 1000, // Update every hour
 		animationSpeed: 2000,
@@ -166,7 +169,7 @@ Module.register("MMM-DaysToEvent", {
 		const events = this.createEventList(true);
 		const wrapper = document.createElement("div");
 		wrapper.className = "daystoevent-grid";
-		wrapper.style.margin = `${this.config.margin}px`;
+		wrapper.style.margin = `${this.config.marginTop}px ${this.config.marginRight}px ${this.config.marginBottom}px ${this.config.marginLeft}px`;
 
 		if (this.error) {
 			wrapper.innerHTML = this.error;
