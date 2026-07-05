@@ -1,9 +1,0 @@
-{
-  "name": "mmm-daystoevent",
-  "version": "1.0.0",
-  "description": "MagicMirror² module: upcoming calendar events shown as days-to-go square tiles.",
-  "scripts": {
-    "test": "node --test"
-  },
-  "license": "MIT"
-}
