@@ -9,7 +9,8 @@ const DaysToEventUtils = {
 	countdownLabel (startMoment, nowMoment) {
 		const days = startMoment.clone().startOf("day").diff(nowMoment.clone().startOf("day"), "days");
 
-		if (days === 0) {
+		// days <= 0 covers today and events already in progress (multi-day events past their start).
+		if (days <= 0) {
 			return { value: "Today", unit: null, isWord: true };
 		}
 		if (days === 1) {

@@ -11,6 +11,11 @@ test("returns the word 'Today' for an event later the same day", () => {
 	assert.deepStrictEqual(DaysToEventUtils.countdownLabel(start, now), { value: "Today", unit: null, isWord: true });
 });
 
+test("returns the word 'Today' for an event already in progress (negative day diff)", () => {
+	const start = moment("2026-07-03T09:00:00");
+	assert.deepStrictEqual(DaysToEventUtils.countdownLabel(start, now), { value: "Today", unit: null, isWord: true });
+});
+
 test("returns the word 'Tomorrow' for the next calendar day", () => {
 	const start = moment("2026-07-06T01:00:00");
 	assert.deepStrictEqual(DaysToEventUtils.countdownLabel(start, now), { value: "Tomorrow", unit: null, isWord: true });
