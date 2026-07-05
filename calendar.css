@@ -1,15 +1,56 @@
-.calendar .symbol {
+.daystoevent-grid {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  gap: 5px;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: flex-start;
 }
 
-.calendar .title {
-  padding: 0 10px;
+.daystoevent-tile {
+  box-sizing: border-box;
+  width: 140px;
+  height: 140px;
+  padding: 10px;
+  border: 1px solid #333;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
-.calendar .time {
-  padding-left: 20px;
-  text-align: right;
+.daystoevent-count {
+  color: #fff;
+}
+
+.daystoevent-number {
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.daystoevent-count.word {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.daystoevent-unit {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #999;
+  margin-top: 2px;
+}
+
+.daystoevent-title {
+  font-size: 14px;
+  color: #ddd;
+  margin-top: 10px;
+}
+
+.daystoevent-date {
+  font-size: 11px;
+  color: #888;
+  margin-top: 3px;
 }
