@@ -57,6 +57,11 @@ dependencies; `moment` is resolved from the host MagicMirror install):
 node --test
 ```
 
+## Links
+
+- [MagicMirror²](https://github.com/MagicMirrorOrg/MagicMirror) — the smart mirror platform this module runs on.
+- [MMM-DailyDilbert](https://github.com/andrecarlucci/MMM-DailyDilbert) — another module of mine.
+
 ## License
 
 MIT — see [LICENSE](LICENSE). Derived from the default MagicMirror² `calendar`
