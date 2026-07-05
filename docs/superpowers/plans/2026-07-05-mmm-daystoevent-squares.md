@@ -167,7 +167,6 @@ Replace the entire `defaults: { … }` object (currently lines 5–69) with this
 			}
 		],
 		excludedEvents: [],
-		broadcastEvents: true,
 		broadcastPastEvents: false,
 		selfSignedCert: false,
 		updateOnFetch: true
@@ -269,9 +268,9 @@ Replace the entire `getDom () { … }` method (currently starting at line 227, e
 	},
 ```
 
-- [ ] **Step 5: Delete the now-dead display helpers**
+- [ ] **Step 5: Delete the now-dead display + broadcast helpers**
 
-Delete these methods from `MMM-DaysToEvent.js` (they were only used by the old table `getDom`). Search each by name and remove the whole method:
+Delete these methods from `MMM-DaysToEvent.js`. Search each by name and remove the whole method:
 
 - `renderDateHeadersEventTime`
 - `buildAbsoluteTimeText`
@@ -282,13 +281,26 @@ Delete these methods from `MMM-DaysToEvent.js` (they were only used by the old t
 - `timeClassForUrl`
 - `colorForUrl`
 - `countTitleForUrl`
+- `createDateHeadersTimeWrapper` — dead once `renderDateHeadersEventTime` is gone (its only caller); it also references `timeClassForUrl`, so it must go for the grep to pass.
+- `broadcastEvents` — dropped feature (see below).
+- `calendarNameForUrl` — only referenced by `broadcastEvents`; delete it too **if** a search confirms no other caller remains.
+
+**Drop the broadcast feature (Option A).** `broadcastEvents()` decorates events with symbol/color/calendarName metadata for *other* modules and sends a `CALENDAR_EVENTS` notification. This display module doesn't need it, and it depends on `symbolsForEvent`/`colorForUrl` which are being deleted. So:
+1. Delete the `broadcastEvents` method.
+2. In `socketNotificationReceived`, remove the block that calls it:
+   ```javascript
+   if (this.config.broadcastEvents) {
+       this.broadcastEvents();
+   }
+   ```
+3. `broadcastEvents` was already removed from `defaults` in Step 2. (`broadcastPastEvents` stays — it's a fetch param consumed by `addCalendar`.)
 
 Keep everything else (`start`, `socketNotificationReceived`, `addCalendars`, `addCalendar`, `createEventList`, `timestampToMoment`, `getCalendarProperty`, `maximumEntriesForUrl`, `maximumPastDaysForUrl`, and any method still referenced by them).
 
 - [ ] **Step 6: Verify nothing references a deleted method or removed config**
 
-Run: `cd /Users/andrecarlucci/dev/MagicMirror && grep -nE "renderDateHeadersEventTime|buildAbsoluteTimeText|buildRelativeTimeText|symbolsForEvent|symbolClassForUrl|titleClassForUrl|timeClassForUrl|colorForUrl|countTitleForUrl|this\.config\.(colored|displaySymbol|timeFormat|showLocation|urgency|customEvents|tableClass)" modules/MMM-DaysToEvent/MMM-DaysToEvent.js`
-Expected: no output (all references gone).
+Run: `cd /Users/andrecarlucci/dev/MagicMirror && grep -nE "renderDateHeadersEventTime|buildAbsoluteTimeText|buildRelativeTimeText|symbolsForEvent|symbolClassForUrl|titleClassForUrl|timeClassForUrl|colorForUrl|countTitleForUrl|createDateHeadersTimeWrapper|broadcastEvents|calendarNameForUrl|this\.config\.(colored|displaySymbol|timeFormat|showLocation|urgency|customEvents|tableClass)" modules/MMM-DaysToEvent/MMM-DaysToEvent.js`
+Expected: no output (all references gone). If `calendarNameForUrl` legitimately has another caller you chose to keep, the grep will show only that method's definition + that caller — note it in your report.
 
 Note: `createEventList` may still reference `this.config.sliceMultiDayEvents` / `limitDays`; those simply evaluate falsy now and are harmless. Do not rewrite `createEventList`.
 
