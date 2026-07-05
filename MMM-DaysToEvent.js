@@ -204,11 +204,11 @@ Module.register("MMM-DaysToEvent", {
 			const countEl = document.createElement("div");
 			countEl.className = "daystoevent-count";
 			if (countdown.kind === "relative") {
-				countEl.innerHTML = `<span class="daystoevent-count-affix">IN</span> ${countdown.days} <span class="daystoevent-count-affix">DAYS</span>`;
+				countEl.innerHTML = `<span class="daystoevent-count-affix daystoevent-count-affix-pre">IN</span><span class="daystoevent-count-num">${countdown.days}</span><span class="daystoevent-count-affix daystoevent-count-affix-post">DAYS</span>`;
 			} else if (countdown.kind === "tomorrow") {
-				countEl.innerHTML = "Tomorrow";
+				countEl.innerHTML = `<span class="daystoevent-count-num">Tomorrow</span>`;
 			} else {
-				countEl.innerHTML = "Today";
+				countEl.innerHTML = `<span class="daystoevent-count-num">Today</span>`;
 			}
 			tile.appendChild(countEl);
 
