@@ -8,6 +8,7 @@ Module.register("MMM-DaysToEvent", {
 		pastDaysCount: 0,
 		maxTitleLength: 45,
 		dateFormat: "ddd - MMM Do",
+		dateRangeFormat: "MMM Do", // Format for each end of a multi-day "Today" event's date range
 		marginTop: 0, // Outer margins (px) around the grid, per side
 		marginRight: 0,
 		marginBottom: 0,
@@ -224,7 +225,15 @@ Module.register("MMM-DaysToEvent", {
 
 			const date = document.createElement("div");
 			date.className = "daystoevent-date";
-			date.innerHTML = startMoment.format(this.config.dateFormat);
+			// For a multi-day event shown as "Today", display the full span
+			// (first day - last day) instead of just the start date.
+			const endMoment = this.timestampToMoment(event.endDate);
+			const lastDay = DaysToEventUtils.multiDayLastDay(startMoment, endMoment, event.fullDayEvent);
+			if (countdown.value === "Today" && lastDay) {
+				date.innerHTML = `${startMoment.format(this.config.dateRangeFormat)} - ${lastDay.format(this.config.dateRangeFormat)}`;
+			} else {
+				date.innerHTML = startMoment.format(this.config.dateFormat);
+			}
 			tile.appendChild(date);
 
 			if (this.config.fade && index >= startFade) {

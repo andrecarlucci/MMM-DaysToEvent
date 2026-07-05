@@ -17,6 +17,23 @@ const DaysToEventUtils = {
 			return { value: "Tomorrow", unit: null, isWord: true };
 		}
 		return { value: String(days), unit: "days", isWord: false };
+	},
+
+	/**
+	 * For a multi-day event, return a moment for its last calendar day; for a
+	 * single-day event, return null. All-day events use an exclusive end date
+	 * (DTEND is the day after the event), so their last day is end minus one day.
+	 * @param {object} startMoment moment for the event start
+	 * @param {object} endMoment moment for the event end
+	 * @param {boolean} fullDayEvent whether the event is an all-day event
+	 * @returns {(object|null)} moment for the last day if multi-day, else null
+	 */
+	multiDayLastDay (startMoment, endMoment, fullDayEvent) {
+		const lastDay = fullDayEvent ? endMoment.clone().subtract(1, "day") : endMoment.clone();
+		if (lastDay.clone().startOf("day").isAfter(startMoment.clone().startOf("day"))) {
+			return lastDay;
+		}
+		return null;
 	}
 };
 
