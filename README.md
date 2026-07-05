@@ -56,3 +56,8 @@ dependencies; `moment` is resolved from the host MagicMirror install):
 ```bash
 node --test
 ```
+
+## License
+
+MIT — see [LICENSE](LICENSE). Derived from the default MagicMirror² `calendar`
+module (also MIT).
