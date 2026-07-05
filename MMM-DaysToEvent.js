@@ -200,22 +200,10 @@ Module.register("MMM-DaysToEvent", {
 			const tile = document.createElement("div");
 			tile.className = "daystoevent-tile";
 
-			const countdown = DaysToEventUtils.countdownLabel(startMoment, now);
+			const countText = DaysToEventUtils.countdownLabel(startMoment, now);
 			const countEl = document.createElement("div");
-			if (countdown.isWord) {
-				countEl.className = "daystoevent-count word";
-				countEl.innerHTML = countdown.value;
-			} else {
-				countEl.className = "daystoevent-count";
-				const number = document.createElement("div");
-				number.className = "daystoevent-number";
-				number.innerHTML = countdown.value;
-				const unit = document.createElement("div");
-				unit.className = "daystoevent-unit";
-				unit.innerHTML = countdown.unit;
-				countEl.appendChild(number);
-				countEl.appendChild(unit);
-			}
+			countEl.className = "daystoevent-count";
+			countEl.innerHTML = countText;
 			tile.appendChild(countEl);
 
 			const title = document.createElement("div");
@@ -229,7 +217,7 @@ Module.register("MMM-DaysToEvent", {
 			// (first day - last day) instead of just the start date.
 			const endMoment = this.timestampToMoment(event.endDate);
 			const lastDay = DaysToEventUtils.multiDayLastDay(startMoment, endMoment, event.fullDayEvent);
-			if (countdown.value === "Today" && lastDay) {
+			if (countText === "Today" && lastDay) {
 				date.innerHTML = `${startMoment.format(this.config.dateRangeFormat)} - ${lastDay.format(this.config.dateRangeFormat)}`;
 			} else {
 				date.innerHTML = startMoment.format(this.config.dateFormat);

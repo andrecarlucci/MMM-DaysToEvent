@@ -8,7 +8,7 @@
 .daystoevent-tile {
   box-sizing: border-box;
   width: 140px;
-  height: 160px;
+  height: 140px;
   padding: 10px;
   border: 1px solid #333;
   border-radius: 10px;
@@ -22,34 +22,12 @@
 
 .daystoevent-count {
   color: #fff;
-  /* Reserve a fixed height (tall enough for number + unit) so the title
-     below always starts on the same line, whether the count is a word
-     ("Today") or a number + "days". */
-  height: 60px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.daystoevent-number {
-  font-size: 44px;
+  font-size: 22px;
   font-weight: 700;
   line-height: 1;
-}
-
-.daystoevent-count.word {
-  font-size: 30px;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.daystoevent-unit {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #999;
-  margin-top: 2px;
+  white-space: nowrap;
+  /* Reserve one line so the title below starts on the same line across all tiles. */
+  height: 26px;
 }
 
 .daystoevent-title {

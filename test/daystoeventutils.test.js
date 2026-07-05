@@ -6,34 +6,34 @@ const DaysToEventUtils = require("../daystoeventutils");
 
 const now = moment("2026-07-05T09:00:00");
 
-test("returns the word 'Today' for an event later the same day", () => {
+test("returns 'Today' for an event later the same day", () => {
 	const start = moment("2026-07-05T20:00:00");
-	assert.deepStrictEqual(DaysToEventUtils.countdownLabel(start, now), { value: "Today", unit: null, isWord: true });
+	assert.strictEqual(DaysToEventUtils.countdownLabel(start, now), "Today");
 });
 
-test("returns the word 'Today' for an event already in progress (negative day diff)", () => {
+test("returns 'Today' for an event already in progress (negative day diff)", () => {
 	const start = moment("2026-07-03T09:00:00");
-	assert.deepStrictEqual(DaysToEventUtils.countdownLabel(start, now), { value: "Today", unit: null, isWord: true });
+	assert.strictEqual(DaysToEventUtils.countdownLabel(start, now), "Today");
 });
 
-test("returns the word 'Tomorrow' for the next calendar day", () => {
+test("returns 'Tomorrow' for the next calendar day", () => {
 	const start = moment("2026-07-06T01:00:00");
-	assert.deepStrictEqual(DaysToEventUtils.countdownLabel(start, now), { value: "Tomorrow", unit: null, isWord: true });
+	assert.strictEqual(DaysToEventUtils.countdownLabel(start, now), "Tomorrow");
 });
 
-test("returns a number with plural unit for 7 days out", () => {
+test("returns 'IN 7 DAYS' for 7 days out", () => {
 	const start = moment("2026-07-12T09:00:00");
-	assert.deepStrictEqual(DaysToEventUtils.countdownLabel(start, now), { value: "7", unit: "days", isWord: false });
+	assert.strictEqual(DaysToEventUtils.countdownLabel(start, now), "IN 7 DAYS");
 });
 
 test("counts whole calendar days, ignoring clock time", () => {
 	const start = moment("2026-07-07T23:59:00");
-	assert.deepStrictEqual(DaysToEventUtils.countdownLabel(start, now), { value: "2", unit: "days", isWord: false });
+	assert.strictEqual(DaysToEventUtils.countdownLabel(start, now), "IN 2 DAYS");
 });
 
 test("crosses month boundaries correctly", () => {
 	const start = moment("2026-08-03T09:00:00");
-	assert.deepStrictEqual(DaysToEventUtils.countdownLabel(start, now), { value: "29", unit: "days", isWord: false });
+	assert.strictEqual(DaysToEventUtils.countdownLabel(start, now), "IN 29 DAYS");
 });
 
 test("multiDayLastDay: single-day timed event returns null", () => {
