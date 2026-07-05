@@ -1,6 +1,53 @@
-# Module: Calendar
+# Module: MMM-DaysToEvent
 
-The `calendar` module is one of the default modules of the MagicMirror².
-This module displays events from a public .ical calendar. It can combine multiple calendars.
+Displays upcoming events from public `.ical` calendars as a wrapping grid of
+square tiles. Each tile shows, top to bottom:
 
-For configuration options, please check the [MagicMirror² documentation](https://docs.magicmirror.builders/modules/calendar.html).
+- the **days until** the event — a big number with a `days` label, or the word
+  **Today** / **Tomorrow** for those cases;
+- the **event title** (shortened to `maxTitleLength`);
+- the **date** (formatted with `dateFormat`, e.g. `Jul 12th`).
+
+Up to `maximumEntries` tiles are shown, soonest first. Derived from the default
+MagicMirror² `calendar` module; the ICS fetch pipeline is unchanged, while the
+display was rewritten and all unused options (symbols, colours, per-event time
+formats, locations, event broadcasting) were removed.
+
+## Installation
+
+Clone into your MagicMirror `modules/` directory, then add a module entry to
+`config/config.js`:
+
+```javascript
+{
+    module: "MMM-DaysToEvent",
+    position: "top_left",
+    config: {
+        maximumEntries: 6,
+        calendars: [
+            { url: "https://www.calendarlabs.com/templates/ical/US-Holidays.ics" }
+        ]
+    }
+},
+```
+
+## Configuration options
+
+| Option                | Default          | Description                                                        |
+| --------------------- | ---------------- | ------------------------------------------------------------------ |
+| `calendars`           | US Holidays      | Array of `{ url, ... }` iCal sources.                              |
+| `maximumEntries`      | `10`             | Maximum number of tiles to show (the "up to X events" cap).       |
+| `maximumNumberOfDays` | `365`            | How far ahead to fetch events.                                     |
+| `maxTitleLength`      | `25`             | Title is shortened to this many characters.                        |
+| `dateFormat`          | `"MMM Do"`       | moment.js format for the tile date (e.g. `Jul 12th`).             |
+| `fade` / `fadePoint`  | `true` / `0.25`  | Fade later tiles; ramp starts at this fraction of the list.        |
+| `fetchInterval`       | `3600000`        | How often (ms) to refetch calendars.                               |
+
+## Development
+
+Unit tests for the countdown logic use Node's built-in test runner (no extra
+dependencies; `moment` is resolved from the host MagicMirror install):
+
+```bash
+node --test
+```
