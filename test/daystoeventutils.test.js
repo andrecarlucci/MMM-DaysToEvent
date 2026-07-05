@@ -6,34 +6,34 @@ const DaysToEventUtils = require("../daystoeventutils");
 
 const now = moment("2026-07-05T09:00:00");
 
-test("returns 'Today' for an event later the same day", () => {
+test("returns kind 'today' for an event later the same day", () => {
 	const start = moment("2026-07-05T20:00:00");
-	assert.strictEqual(DaysToEventUtils.countdownLabel(start, now), "Today");
+	assert.deepStrictEqual(DaysToEventUtils.countdownLabel(start, now), { kind: "today" });
 });
 
-test("returns 'Today' for an event already in progress (negative day diff)", () => {
+test("returns kind 'today' for an event already in progress (negative day diff)", () => {
 	const start = moment("2026-07-03T09:00:00");
-	assert.strictEqual(DaysToEventUtils.countdownLabel(start, now), "Today");
+	assert.deepStrictEqual(DaysToEventUtils.countdownLabel(start, now), { kind: "today" });
 });
 
-test("returns 'Tomorrow' for the next calendar day", () => {
+test("returns kind 'tomorrow' for the next calendar day", () => {
 	const start = moment("2026-07-06T01:00:00");
-	assert.strictEqual(DaysToEventUtils.countdownLabel(start, now), "Tomorrow");
+	assert.deepStrictEqual(DaysToEventUtils.countdownLabel(start, now), { kind: "tomorrow" });
 });
 
-test("returns 'IN 7 DAYS' for 7 days out", () => {
+test("returns relative with 7 days out", () => {
 	const start = moment("2026-07-12T09:00:00");
-	assert.strictEqual(DaysToEventUtils.countdownLabel(start, now), "IN 7 DAYS");
+	assert.deepStrictEqual(DaysToEventUtils.countdownLabel(start, now), { kind: "relative", days: 7 });
 });
 
 test("counts whole calendar days, ignoring clock time", () => {
 	const start = moment("2026-07-07T23:59:00");
-	assert.strictEqual(DaysToEventUtils.countdownLabel(start, now), "IN 2 DAYS");
+	assert.deepStrictEqual(DaysToEventUtils.countdownLabel(start, now), { kind: "relative", days: 2 });
 });
 
 test("crosses month boundaries correctly", () => {
 	const start = moment("2026-08-03T09:00:00");
-	assert.strictEqual(DaysToEventUtils.countdownLabel(start, now), "IN 29 DAYS");
+	assert.deepStrictEqual(DaysToEventUtils.countdownLabel(start, now), { kind: "relative", days: 29 });
 });
 
 test("multiDayLastDay: single-day timed event returns null", () => {

@@ -22,12 +22,18 @@
 
 .daystoevent-count {
   color: #fff;
-  font-size: 22px;
+  font-size: 28px;
   font-weight: 700;
   line-height: 1;
   white-space: nowrap;
   /* Reserve one line so the title below starts on the same line across all tiles. */
-  height: 26px;
+  height: 32px;
+}
+
+/* "IN" and "DAYS" are smaller than the emphasized day number. */
+.daystoevent-count-affix {
+  font-size: 14px;
+  color: #bbb;
 }
 
 .daystoevent-title {
@@ -46,6 +52,7 @@
 
 .daystoevent-date {
   font-size: 11px;
+  font-weight: bold;
   color: #888;
   /* Push the date to the bottom of the tile so dates align across all tiles,
      regardless of how many lines the title uses. */

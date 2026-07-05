@@ -200,10 +200,16 @@ Module.register("MMM-DaysToEvent", {
 			const tile = document.createElement("div");
 			tile.className = "daystoevent-tile";
 
-			const countText = DaysToEventUtils.countdownLabel(startMoment, now);
+			const countdown = DaysToEventUtils.countdownLabel(startMoment, now);
 			const countEl = document.createElement("div");
 			countEl.className = "daystoevent-count";
-			countEl.innerHTML = countText;
+			if (countdown.kind === "relative") {
+				countEl.innerHTML = `<span class="daystoevent-count-affix">IN</span> ${countdown.days} <span class="daystoevent-count-affix">DAYS</span>`;
+			} else if (countdown.kind === "tomorrow") {
+				countEl.innerHTML = "Tomorrow";
+			} else {
+				countEl.innerHTML = "Today";
+			}
 			tile.appendChild(countEl);
 
 			const title = document.createElement("div");
@@ -217,7 +223,7 @@ Module.register("MMM-DaysToEvent", {
 			// (first day - last day) instead of just the start date.
 			const endMoment = this.timestampToMoment(event.endDate);
 			const lastDay = DaysToEventUtils.multiDayLastDay(startMoment, endMoment, event.fullDayEvent);
-			if (countText === "Today" && lastDay) {
+			if (countdown.kind === "today" && lastDay) {
 				date.innerHTML = `${startMoment.format(this.config.dateRangeFormat)} - ${lastDay.format(this.config.dateRangeFormat)}`;
 			} else {
 				date.innerHTML = startMoment.format(this.config.dateFormat);

@@ -1,22 +1,23 @@
 const DaysToEventUtils = {
 
 	/**
-	 * Build the single-line countdown label for an event tile.
+	 * Describe the countdown for an event tile. Presentation (fonts, "IN … DAYS"
+	 * wording) is left to the renderer.
 	 * @param {object} startMoment moment for the event start
 	 * @param {object} nowMoment moment for "now"
-	 * @returns {string} the label text ("Today", "Tomorrow", or "IN N DAYS")
+	 * @returns {{kind: string, days: (number|undefined)}} "today", "tomorrow", or "relative" with a day count
 	 */
 	countdownLabel (startMoment, nowMoment) {
 		const days = startMoment.clone().startOf("day").diff(nowMoment.clone().startOf("day"), "days");
 
 		// days <= 0 covers today and events already in progress (multi-day events past their start).
 		if (days <= 0) {
-			return "Today";
+			return { kind: "today" };
 		}
 		if (days === 1) {
-			return "Tomorrow";
+			return { kind: "tomorrow" };
 		}
-		return `IN ${days} DAYS`;
+		return { kind: "relative", days };
 	},
 
 	/**
