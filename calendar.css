@@ -8,7 +8,7 @@
 .daystoevent-tile {
   box-sizing: border-box;
   width: 140px;
-  height: 140px;
+  height: 160px;
   padding: 10px;
   border: 1px solid #333;
   border-radius: 10px;
@@ -62,12 +62,15 @@
   /* Keep long descriptions inside the square: wrap, clamp to 2 lines, ellipsis. */
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   overflow: hidden;
 }
 
 .daystoevent-date {
   font-size: 11px;
   color: #888;
-  margin-top: 3px;
+  /* Push the date to the bottom of the tile so dates align across all tiles,
+     regardless of how many lines the title uses. */
+  margin-top: auto;
+  padding-top: 3px;
 }

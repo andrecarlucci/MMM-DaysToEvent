@@ -6,8 +6,8 @@ Module.register("MMM-DaysToEvent", {
 		maximumEntries: 10, // Total maximum tiles to show
 		maximumNumberOfDays: 365,
 		pastDaysCount: 0,
-		maxTitleLength: 25,
-		dateFormat: "MMM Do",
+		maxTitleLength: 45,
+		dateFormat: "ddd - MMM Do",
 		marginTop: 0, // Outer margins (px) around the grid, per side
 		marginRight: 0,
 		marginBottom: 0,
