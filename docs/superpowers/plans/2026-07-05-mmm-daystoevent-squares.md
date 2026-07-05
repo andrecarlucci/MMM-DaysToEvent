@@ -15,7 +15,8 @@
 - Countdown wording (Style 1): today → `"Today"`, tomorrow → `"Tomorrow"`, otherwise the integer day count with unit `"day"` (count 1) / `"days"` (otherwise).
 - Do NOT modify `node_helper.js`, `calendarfetcher.js`, `calendarfetcherutils.js`, or `calendarutils.js`.
 - Helper files must use the dual browser/node export pattern already used in `calendarutils.js`: define a global object, then `if (typeof module !== "undefined") { module.exports = X; }`.
-- Unit tests live under `tests/unit/**/*_spec.js` and run in a **node** environment (no DOM). Only pure logic is unit-tested; the DOM rendering is verified visually.
+- Unit tests live in this module's own repo under `test/*.test.js` and run via Node's built-in runner (`node --test`, no DOM). `moment` resolves from MagicMirror's install. Only pure logic is unit-tested; the DOM rendering is verified visually.
+- **Version control:** This module is its own git repository at `modules/MMM-DaysToEvent/` (the MagicMirror repo gitignores `modules/*`). ALL commits go in the module repo — run `git` from `modules/MMM-DaysToEvent/`. Never modify or commit to the MagicMirror repo. Plain `git add` works here (no `-f` needed).
 
 ---
 
@@ -299,8 +300,9 @@ Expected: no errors. Fix any that appear (e.g. unused vars from deletions).
 - [ ] **Step 8: Commit**
 
 ```bash
-git add modules/MMM-DaysToEvent/MMM-DaysToEvent.js
-git commit -m "feat(MMM-DaysToEvent): render events as square tiles"
+# run from modules/MMM-DaysToEvent/ (the module's own git repo)
+git add MMM-DaysToEvent.js
+git commit -m "feat: render events as square tiles"
 ```
 
 ---
@@ -376,8 +378,9 @@ Replace the entire contents of `modules/MMM-DaysToEvent/calendar.css` with:
 - [ ] **Step 2: Commit**
 
 ```bash
-git add modules/MMM-DaysToEvent/calendar.css
-git commit -m "style(MMM-DaysToEvent): tile grid styles"
+# run from modules/MMM-DaysToEvent/
+git add calendar.css
+git commit -m "style: tile grid styles"
 ```
 
 ---
@@ -440,6 +443,7 @@ Expected: PASS.
 - [ ] **Step 6: Commit**
 
 ```bash
-git add modules/MMM-DaysToEvent/README.md
-git commit -m "docs(MMM-DaysToEvent): describe tile layout"
+# run from modules/MMM-DaysToEvent/
+git add README.md
+git commit -m "docs: describe tile layout"
 ```
