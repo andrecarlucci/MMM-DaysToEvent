@@ -40,6 +40,7 @@ Clone into your MagicMirror `modules/` directory, then add a module entry to
 | `maximumNumberOfDays` | `365`            | How far ahead to fetch events.                                     |
 | `maxTitleLength`      | `25`             | Title is shortened to this many characters.                        |
 | `dateFormat`          | `"MMM Do"`       | moment.js format for the tile date (e.g. `Jul 12th`).             |
+| `margin`              | `0`              | Outer margin in pixels, applied to all four sides of the grid.     |
 | `fade` / `fadePoint`  | `true` / `0.25`  | Fade later tiles; ramp starts at this fraction of the list.        |
 | `fetchInterval`       | `3600000`        | How often (ms) to refetch calendars.                               |
 
