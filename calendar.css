@@ -17,10 +17,19 @@
   align-items: center;
   justify-content: flex-start;
   text-align: center;
+  overflow: hidden;
 }
 
 .daystoevent-count {
   color: #fff;
+  /* Reserve a fixed height (tall enough for number + unit) so the title
+     below always starts on the same line, whether the count is a word
+     ("Today") or a number + "days". */
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .daystoevent-number {
@@ -45,8 +54,16 @@
 
 .daystoevent-title {
   font-size: 14px;
+  line-height: 1.15;
   color: #ddd;
-  margin-top: 10px;
+  margin-top: 6px;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  /* Keep long descriptions inside the square: wrap, clamp to 2 lines, ellipsis. */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 
 .daystoevent-date {
