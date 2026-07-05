@@ -15,7 +15,7 @@ const DaysToEventUtils = {
 		if (days === 1) {
 			return { value: "Tomorrow", unit: null, isWord: true };
 		}
-		return { value: String(days), unit: days === 1 ? "day" : "days", isWord: false };
+		return { value: String(days), unit: "days", isWord: false };
 	}
 };
 

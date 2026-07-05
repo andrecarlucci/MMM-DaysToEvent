@@ -408,67 +408,6 @@ Module.register("MMM-DaysToEvent", {
 		});
 	},
 
-	mergeUnique (arr1, arr2) {
-		return arr1.concat(
-			arr2.filter(function (item) {
-				return arr1.indexOf(item) === -1;
-			})
-		);
-	},
-
-	hasEventDuration (event) {
-		return event.startDate !== event.endDate;
-	},
-
-	shouldShowDateHeadersTimedEnd (event) {
-		return this.config.showEnd && (!this.config.showEndsOnlyWithDuration || this.hasEventDuration(event));
-	},
-
-	shouldShowRelativeTimedEnd (event) {
-		return !this.config.hideTime && this.config.showEnd && (!this.config.showEndsOnlyWithDuration || this.hasEventDuration(event));
-	},
-
-	getAdjustedFullDayEndMoment (endMoment) {
-		return endMoment.clone().subtract(1, "second");
-	},
-
-	/**
-	 * Determines whether two moments are on the same day.
-	 * @param {moment.Moment} startMoment The start moment.
-	 * @param {moment.Moment} endMoment The end moment.
-	 * @returns {boolean} True when both moments share the same calendar day.
-	 */
-	isSameDay (startMoment, endMoment) {
-		return startMoment.isSame(endMoment, "d");
-	},
-
-	/**
-	 * Checks whether the configured dateFormat already contains time components.
-	 * @returns {boolean} True when dateFormat includes time tokens.
-	 */
-	dateFormatIncludesTime () {
-		const dateFormatWithoutLiterals = this.config.dateFormat.replace(/\[[^\]]*\]/g, "");
-		const localeDateFormat = moment.localeData();
-		const expandedDateFormat = dateFormatWithoutLiterals.replace(
-			/LTS|LT|LLLL|LLL|LL|L|llll|lll|ll|l/g,
-			(token) => localeDateFormat.longDateFormat(token) || token
-		);
-		const expandedDateFormatWithoutLiterals = expandedDateFormat.replace(/\[[^\]]*\]/g, "");
-		return (/(H{1,2}|h{1,2}|k{1,2}|m{1,2}|s{1,2}|a|A)/).test(expandedDateFormatWithoutLiterals);
-	},
-
-	/**
-	 * Formats a timed event end value.
-	 * Uses time-only for same-day events and dateEndFormat for multi-day events.
-	 * @param {moment.Moment} startMoment The event start moment.
-	 * @param {moment.Moment} endMoment The event end moment.
-	 * @returns {string} The formatted end value.
-	 */
-	formatTimedEventEnd (startMoment, endMoment) {
-		const endFormat = this.isSameDay(startMoment, endMoment) ? "LT" : this.config.dateEndFormat;
-		return CalendarUtils.capFirst(endMoment.format(endFormat));
-	},
-
 	/**
 	 * Retrieves the maximum entry count for a specific calendar url.
 	 * @param {string} url The calendar url
@@ -502,25 +441,6 @@ Module.register("MMM-DaysToEvent", {
 		}
 
 		return defaultValue;
-	},
-
-	getCalendarPropertyAsArray (url, property, defaultValue) {
-		let p = this.getCalendarProperty(url, property, defaultValue);
-		if (property === "symbol" || property === "recurringSymbol" || property === "fullDaySymbol") {
-			const className = this.getCalendarProperty(url, "symbolClassName", this.config.defaultSymbolClassName);
-			if (p instanceof Array) {
-				let t = [];
-				p.forEach((n) => { t.push(className + n); });
-				p = t;
-			}
-			else p = className + p;
-		}
-		if (!(p instanceof Array)) p = [p];
-		return p;
-	},
-
-	hasCalendarProperty (url, property) {
-		return !!this.getCalendarProperty(url, property, undefined);
 	},
 
 	/**
