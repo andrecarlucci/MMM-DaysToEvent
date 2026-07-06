@@ -62,7 +62,6 @@
   line-height: 1.15;
   color: #ddd;
   margin-top: 6px;
-  width: 100%;
   max-width: 100%;
   overflow-wrap: break-word;
   /* Keep long descriptions inside the square: wrap, clamp to 2 lines, ellipsis. */
@@ -72,16 +71,16 @@
   overflow: hidden;
 }
 
-/* Title alignment, controlled by the `titleAlign` config option. */
-.daystoevent-title-left {
+/* Module header alignment, controlled by the `headerAlign` config option. */
+.daystoevent-header-left .module-header {
   text-align: left;
 }
 
-.daystoevent-title-center {
+.daystoevent-header-center .module-header {
   text-align: center;
 }
 
-.daystoevent-title-right {
+.daystoevent-header-right .module-header {
   text-align: right;
 }
 

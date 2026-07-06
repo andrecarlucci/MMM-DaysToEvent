@@ -7,7 +7,7 @@ Module.register("MMM-DaysToEvent", {
 		maximumNumberOfDays: 365,
 		pastDaysCount: 0,
 		maxTitleLength: 45,
-		titleAlign: "left", // Horizontal alignment of the event title: "left", "center" or "right"
+		headerAlign: "left", // Horizontal alignment of the module header: "left", "center" or "right"
 		dateFormat: "ddd - MMM Do",
 		dateRangeFormat: "MMM Do", // Format for each end of a multi-day "Today" event's date range
 		marginTop: 0, // Outer margins (px) around the grid, per side
@@ -57,6 +57,10 @@ Module.register("MMM-DaysToEvent", {
 	// Override start method.
 	start () {
 		Log.info(`Starting module: ${this.name}`);
+
+		// Add a class to the module wrapper so the header can be aligned via CSS.
+		const align = ["left", "center", "right"].includes(this.config.headerAlign) ? this.config.headerAlign : "left";
+		this.data.classes = `${this.data.classes || ""} daystoevent-header-${align}`.trim();
 
 		// Set locale.
 		moment.updateLocale(config.language, CalendarUtils.getLocaleSpecification(config.timeFormat));
@@ -214,8 +218,7 @@ Module.register("MMM-DaysToEvent", {
 			tile.appendChild(countEl);
 
 			const title = document.createElement("div");
-			const titleAlign = ["left", "center", "right"].includes(this.config.titleAlign) ? this.config.titleAlign : "left";
-			title.className = `daystoevent-title daystoevent-title-${titleAlign}`;
+			title.className = "daystoevent-title";
 			title.innerHTML = CalendarUtils.shorten(event.title, this.config.maxTitleLength);
 			tile.appendChild(title);
 
