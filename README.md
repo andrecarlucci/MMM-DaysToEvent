@@ -39,6 +39,7 @@ Clone into your MagicMirror `modules/` directory, then add a module entry to
 | `maximumEntries`      | `10`             | Maximum number of tiles to show (the "up to X events" cap).       |
 | `maximumNumberOfDays` | `365`            | How far ahead to fetch events.                                     |
 | `maxTitleLength`      | `45`             | Title is shortened to this many characters (wraps up to 3 lines).  |
+| `titleAlign`          | `"left"`         | Horizontal alignment of the event title: `"left"`, `"center"` or `"right"`. |
 | `dateFormat`          | `"ddd - MMM Do"` | moment.js format for the tile date (e.g. `Tue - Jul 7th`).         |
 | `dateRangeFormat`     | `"MMM Do"`       | Format for each end of a multi-day "Today" event's range (e.g. `Jul 4th - Aug 16th`). |
 | `marginTop`           | `0`              | Outer margin (px) above the grid.                                  |

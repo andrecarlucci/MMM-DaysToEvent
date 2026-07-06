@@ -62,6 +62,7 @@
   line-height: 1.15;
   color: #ddd;
   margin-top: 6px;
+  width: 100%;
   max-width: 100%;
   overflow-wrap: break-word;
   /* Keep long descriptions inside the square: wrap, clamp to 2 lines, ellipsis. */
@@ -69,6 +70,19 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   overflow: hidden;
+}
+
+/* Title alignment, controlled by the `titleAlign` config option. */
+.daystoevent-title-left {
+  text-align: left;
+}
+
+.daystoevent-title-center {
+  text-align: center;
+}
+
+.daystoevent-title-right {
+  text-align: right;
 }
 
 .daystoevent-date {

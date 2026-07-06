@@ -7,6 +7,7 @@ Module.register("MMM-DaysToEvent", {
 		maximumNumberOfDays: 365,
 		pastDaysCount: 0,
 		maxTitleLength: 45,
+		titleAlign: "left", // Horizontal alignment of the event title: "left", "center" or "right"
 		dateFormat: "ddd - MMM Do",
 		dateRangeFormat: "MMM Do", // Format for each end of a multi-day "Today" event's date range
 		marginTop: 0, // Outer margins (px) around the grid, per side
@@ -213,7 +214,8 @@ Module.register("MMM-DaysToEvent", {
 			tile.appendChild(countEl);
 
 			const title = document.createElement("div");
-			title.className = "daystoevent-title";
+			const titleAlign = ["left", "center", "right"].includes(this.config.titleAlign) ? this.config.titleAlign : "left";
+			title.className = `daystoevent-title daystoevent-title-${titleAlign}`;
 			title.innerHTML = CalendarUtils.shorten(event.title, this.config.maxTitleLength);
 			tile.appendChild(title);
 
